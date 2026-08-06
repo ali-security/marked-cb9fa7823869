@@ -1,15 +1,12 @@
-name: "Tests"
+name: Tests
 on:
   workflow_dispatch:
-  pull_request:
-  push:
-    branches:
-      - master
-
 jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2021-05-27T16%3A17%3A12.429000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Install Node
@@ -26,9 +23,12 @@ jobs:
       - name: Run Spec Tests 👩🏽‍💻
         run: npm run test:specs
 
+    timeout-minutes: 40
   Build:
     runs-on: ubuntu-latest
     steps:
+      - name: Configure npm time machine registry
+        run: npm config set registry https://:2021-05-27T16%3A17%3A12.429000Z@time-machines-npm.sealsecurity.io/
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Install Node
@@ -46,3 +46,4 @@ jobs:
         with:
           name: marked-tgz
           path: marked-*.tgz
+    timeout-minutes: 40
